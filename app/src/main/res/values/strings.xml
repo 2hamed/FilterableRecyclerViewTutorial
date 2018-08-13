@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FilterableRecyclerView</string>
+    <string name="search_hint">Search...</string>
+</resources>
