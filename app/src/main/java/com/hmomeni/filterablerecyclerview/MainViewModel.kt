@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
         oldFilteredPosts.addAll(originalPosts)
     }
 
-    fun search(query: String) = Completable.create {
+    fun search(query: String): Completable = Completable.create {
         val wanted = originalPosts.filter {
             it.title.contains(query) || it.content.contains(query)
         }.toList()

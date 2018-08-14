@@ -7,13 +7,17 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
+    private val disposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,8 +40,13 @@ class MainActivity : AppCompatActivity() {
                                 viewModel.oldFilteredPosts.clear()
                                 viewModel.oldFilteredPosts.addAll(viewModel.filteredPosts)
                                 diffResult.dispatchUpdatesTo(recyclerView.adapter)
-                            }
-                }
+                            }.addTo(disposable)
+                }.addTo(disposable)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }

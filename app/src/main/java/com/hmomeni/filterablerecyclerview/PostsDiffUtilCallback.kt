@@ -8,5 +8,6 @@ class PostsDiffUtilCallback(private val oldList: List<Post>, private val newList
     override fun getNewListSize() = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].id == newList[newItemPosition].id
+
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = true
 }
